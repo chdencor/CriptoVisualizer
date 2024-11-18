@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - CriptoExplorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newstyle.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="navbar">
+            <h1 class="logo">CriptoExplorer</h1>
+        </nav>
+
+        <section class="form-section">
+            <div class="form-container">
+                <h2>Iniciar Sesión</h2>
+                <form method="POST" action="{{ url_for('login.login') }}">
+                    <label for="nombre_usuario">Nombre de Usuario</label>
+                    <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Tu usuario" required>
+                    
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="Tu contraseña" required>
+                    
+                    <button type="submit" class="btn">Iniciar Sesión</button>
+                </form>
+                <p>¿No tienes una cuenta? <a href="{{ url_for('signin.signin') }}">Regístrate aquí</a>.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 NoLimits | Powered by CoinAPI</p>
+    </footer>
+</body>
+</html>

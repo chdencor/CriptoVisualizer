@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from app.models.dbBorker import Criptomoneda, Registro
 from app import db
 
@@ -6,7 +6,13 @@ home_bp = Blueprint('home', __name__, template_folder='../views/templates')
 
 @home_bp.route('/')
 def index():
-    # Consultar las primeras 100 criptomonedas, ordenadas por el último registro rank
+    # Verificar si hay una sesión activa (si el usuario está autenticado)
+    if 'user_id' not in session:
+        # Si no está autenticado, redirigir a la página de login
+        flash("Debes iniciar sesión primero.", "warning")
+        return redirect(url_for('login.login'))
+
+    # Si el usuario está autenticado, mostrar la página principal con las criptomonedas
     top_cryptos = db.session.query(Criptomoneda).limit(100).all()
 
     # Preparar la lista de criptomonedas y sus últimos registros
@@ -20,6 +26,8 @@ def index():
 
     # Pasar los datos a la plantilla
     return render_template('index.html', cryptos=cryptos_with_latest_record)
+
+
 
 
 @home_bp.route('/cripto')

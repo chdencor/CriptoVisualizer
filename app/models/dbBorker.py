@@ -36,3 +36,10 @@ class Registro(Base):
 
     # Relación con criptomonedas
     criptomoneda = relationship("Criptomoneda", back_populates="registros")
+
+class Usuario(Base):
+    __tablename__ = 'usuarios'
+
+    id = Column(Integer, primary_key=True)
+    nombre_usuario = Column(String(150), unique=True, nullable=False)
+    contraseña = Column(String(255), nullable=False)
